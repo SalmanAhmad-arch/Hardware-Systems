@@ -31,24 +31,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  // Empty state
   if (wishlist.length === 0) {
     emptyMsg.style.display = 'block';
     return;
   }
 
-  // Render items
+  grid.innerHTML = '';
+
   wishlist.forEach(product => {
-    const card = `
-      <div class="wishlist-card">
-        <img src="${product.image}" alt="${product.title}">
-        <h3>${product.title}</h3>
-        <p>${product.price ? product.price : ''}</p>
-        <a href="${product.url}">View Product</a>
-      </div>
+    const card = document.createElement('div');
+    card.classList.add('wishlist-card');
+
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.title}">
+      <h3>${product.title}</h3>
+      <a href="${product.url}">View Product</a>
     `;
-    grid.innerHTML += card;
+
+    grid.appendChild(card);
   });
 });
-
-    </script>
+</script>
