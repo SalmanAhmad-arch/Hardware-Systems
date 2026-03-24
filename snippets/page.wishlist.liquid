@@ -26,43 +26,35 @@
 {% endstylesheet %}
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('wishlistGrid');
-  const emptyMsg = document.getElementById('emptyMsg');
-
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('wishlist-container');
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
   if (wishlist.length === 0) {
-    emptyMsg.style.display = 'block';
+    container.innerHTML = "<p>Your wishlist is empty</p>";
     return;
   }
 
-  grid.innerHTML = '';
+  // Loop through saved IDs
+  for (let item of wishlist) {
+    try {
+      let response = await fetch(`/products/${item.id}.js`);
+      let product = await response.json();
 
-  wishlist.forEach(product => {
-    const card = document.createElement('div');
-    card.classList.add('wishlist-card');
+      let productHTML = `
+        <div class="wishlist-item">
+          <img src="${product.images[0]}" width="150"/>
+          <h3>${product.title}</h3>
+          <p>${product.price / 100} PKR</p>
+          <a href="/products/${product.handle}">View Product</a>
+        </div>
+      `;
 
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.title}">
-      <h3>${product.title}</h3>
-      <p>${product.price ? product.price : ''}</p>
-      <a href="${product.url}">View Product</a>
-      <button class="remove-wishlist" data-id="${product.id}">Remove</button>
-    `;
+      container.innerHTML += productHTML;
 
-    grid.appendChild(card);
-  });
-
-  // Remove from wishlist button
-  grid.addEventListener('click', function(e){
-    if (e.target.classList.contains('remove-wishlist')) {
-      const id = e.target.getAttribute('data-id');
-      wishlist = wishlist.filter(item => item.id != id);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-      e.target.closest('.wishlist-card').remove();
-      if (wishlist.length === 0) emptyMsg.style.display = 'block';
+    } catch (error) {
+      console.log("Error loading product", error);
     }
-  });
+  }
 });
 </script>
