@@ -1,12 +1,11 @@
 <div class="wishlist-page">
   <h1>Your Wishlist</h1>
-
   <div id="wishlistGrid" class="wishlist-grid"></div>
-
   <p id="emptyMsg" style="display:none;">Your wishlist is empty.</p>
 </div>
+
 {% stylesheet %}
-  .wishlist-grid {
+.wishlist-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
@@ -24,6 +23,7 @@
   object-fit: cover;
 }
 {% endstylesheet %}
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('wishlistGrid');
@@ -45,10 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
     card.innerHTML = `
       <img src="${product.image}" alt="${product.title}">
       <h3>${product.title}</h3>
+      <p>${product.price ? product.price : ''}</p>
       <a href="${product.url}">View Product</a>
+      <button class="remove-wishlist" data-id="${product.id}">Remove</button>
     `;
 
     grid.appendChild(card);
+  });
+
+  // Remove from wishlist button
+  grid.addEventListener('click', function(e){
+    if (e.target.classList.contains('remove-wishlist')) {
+      const id = e.target.getAttribute('data-id');
+      wishlist = wishlist.filter(item => item.id != id);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      e.target.closest('.wishlist-card').remove();
+      if (wishlist.length === 0) emptyMsg.style.display = 'block';
+    }
   });
 });
 </script>
