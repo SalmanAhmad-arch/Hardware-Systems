@@ -37,31 +37,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  // Event delegation for dynamic buttons
   document.body.addEventListener('click', function(e){
     const btn = e.target.closest('.wishlist-btn');
     if (!btn) return;
 
-   fetch(`/products/${item.id}.js`)
+    const id = btn.getAttribute('data-id');
 
     wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
     const index = wishlist.findIndex(item => item.id == id);
 
     if (index > -1) {
       wishlist.splice(index, 1);
       btn.classList.remove('active');
     } else {
-      wishlist.push({id}); // id = handle now
+      wishlist.push({ id }); // ✅ yahan fix hai
       btn.classList.add('active');
-      window.location.href = "/pages/wishlist";
     }
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
 
+  // Active state on load
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
-    const icon = btn.querySelector('i');
+
     if (wishlist.find(item => item.id == id)) {
       btn.classList.add('active');
     }
