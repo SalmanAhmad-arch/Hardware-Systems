@@ -2,7 +2,16 @@
 
 {% assign product_id_str = product.id | append: '' %}
 
-{% render 'wishlist', product: product %}
+<button
+  class="wishlist-btn"
+  data-id="{{ product.id }}"
+  data-title="{{ product.title }}"
+  data-image="{{ product.featured_image | img_url: '300x' }}"
+  data-url="{{ product.url }}"
+  data-price="{{ product.price | money }}"
+>
+  <i class="fa-regular fa-heart"></i>
+</button>
 
 {% stylesheet %}
 .wishlist-btn {
@@ -30,8 +39,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+  // Event delegation for dynamic buttons
   document.body.addEventListener('click', function(e){
     const btn = e.target.closest('.wishlist-btn');
     if (!btn) return;
@@ -61,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
 
-  // Set initial active hearts on page load
+  // Set active state on load
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
     const icon = btn.querySelector('i');
@@ -71,6 +81,5 @@ document.addEventListener('DOMContentLoaded', () => {
       icon.classList.add('fa-solid');
     }
   });
-
 });
 </script>
