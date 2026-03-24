@@ -34,32 +34,40 @@
 }
 {% endstylesheet %}
 <script>
-var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
 document.addEventListener('DOMContentLoaded', () => {
+
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    const id = btn.dataset.id;
-    const title = btn.dataset.title;
-    const image = btn.dataset.image;
-    const url = btn.dataset.url;
+
+    const id = btn.getAttribute('data-id');
+    const title = btn.getAttribute('data-title');
+    const image = btn.getAttribute('data-image');
+    const url = btn.getAttribute('data-url');
+
     const icon = btn.querySelector('i');
 
-    // already added check
-    if (wishlist.find(p => p.id === id)) {
+    // check already added
+    if (wishlist.some(item => item.id == id)) {
       btn.classList.add('active');
       icon.classList.remove('fa-regular');
       icon.classList.add('fa-solid');
     }
 
-    btn.addEventListener('click', () => {
-      const exists = wishlist.find(p => p.id === id);
+    btn.addEventListener('click', function () {
 
-      if (exists) {
-        wishlist = wishlist.filter(p => p.id !== id);
+      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+      const index = wishlist.findIndex(item => item.id == id);
+
+      if (index > -1) {
+        // remove
+        wishlist.splice(index, 1);
         btn.classList.remove('active');
         icon.classList.remove('fa-solid');
         icon.classList.add('fa-regular');
       } else {
+        // add
         wishlist.push({ id, title, image, url });
         btn.classList.add('active');
         icon.classList.remove('fa-regular');
@@ -68,6 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     });
+
   });
+
 });
 </script>
