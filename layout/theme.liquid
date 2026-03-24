@@ -387,13 +387,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const index = wishlist.findIndex(item => item.id == id);
 
-    if (index > -1) {
-      wishlist.splice(index, 1);
-      btn.classList.remove('active');
-    } else {
-      wishlist.push({ id });
-      btn.classList.add('active');
-    }
+   if (index > -1) {
+  wishlist.splice(index, 1);
+  btn.classList.remove('active');
+} else {
+  wishlist.push({ id });
+  btn.classList.add('active');
+
+  window.location.href = "/pages/wishlist";
+}
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
