@@ -51,14 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
       wishlist.splice(index, 1);
       btn.classList.remove('active');
     } else {
-      wishlist.push({ id }); // ✅ yahan fix hai
+      wishlist.push({ id });
       btn.classList.add('active');
     }
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
 
-  // Active state on load
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
 
