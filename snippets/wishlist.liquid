@@ -1,0 +1,31 @@
+<button
+  class="wishlist-btn{% if product.id | string | in: wishlist_ids %} active{% endif %}"
+  data-product-id="{{ product.id }}"
+  aria-label="Add to wishlist"
+>
+  ♥
+</button>
+{% stylesheet %}
+  .wishlist-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  font-size: 21px;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.2);
+}
+
+.wishlist-btn.active {
+  color: red;
+}
+{% endstylesheet %}
