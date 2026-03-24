@@ -19,37 +19,37 @@
   object-fit: cover;
 }
 {% endstylesheet %}
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('wishlist-container');
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  document.body.addEventListener('click', function(e){
-    const btn = e.target.closest('.wishlist-btn');
-    if (!btn) return;
+  if (wishlist.length === 0) {
+    container.innerHTML = "<p>Your wishlist is empty</p>";
+    return;
+  }
 
-    const id = btn.getAttribute('data-id');
+  // Loop through saved IDs
+  for (let item of wishlist) {
+    try {
+      let response = await fetch(`/products/${item.id}.js`);
+      let product = await response.json();
 
-    wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      let productHTML = `
+        <div class="wishlist-item">
+          <img src="${product.images[0]}" width="150"/>
+          <h3>${product.title}</h3>
+          <p>${product.price / 100} PKR</p>
+          <a href="/products/${product.handle}">View Product</a>
+        </div>
+      `;
 
-    const index = wishlist.findIndex(item => item.id == id);
+      container.innerHTML += productHTML;
 
-    if (index > -1) {
-      wishlist.splice(index, 1);
-      btn.classList.remove('active');
-    } else {
-      wishlist.push({ id });
-      btn.classList.add('active');
+    } catch (error) {
+      console.log("Error loading product", error);
     }
-
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  });
-
-  document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    const id = btn.getAttribute('data-id');
-
-    if (wishlist.find(item => item.id == id)) {
-      btn.classList.add('active');
-    }
-  });
+  }
 });
 </script>
