@@ -5,10 +5,6 @@
 <button
   class="wishlist-btn"
   data-id="{{ product.id }}"
-  data-title="{{ product.title }}"
-  data-image="{{ product.featured_image | img_url: '300x' }}"
-  data-url="{{ product.url }}"
-  data-price="{{ product.price | money }}"
 >
   <i class="fa-solid fa-heart"></i>
 </button>
@@ -47,11 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
 
     const id = btn.getAttribute('data-id');
-    const title = btn.getAttribute('data-title');
-    const image = btn.getAttribute('data-image');
-    const url = btn.getAttribute('data-url');
-    const price = btn.getAttribute('data-price');
-    const icon = btn.querySelector('i');
 
     wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const index = wishlist.findIndex(item => item.id == id);
@@ -59,13 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index > -1) {
       wishlist.splice(index, 1);
       btn.classList.remove('active');
-      icon.classList.remove('fa-solid');
-      icon.classList.add('fa-regular');
     } else {
-      wishlist.push({ id, title, image, url, price });
+      wishlist.push({id});
       btn.classList.add('active');
-      icon.classList.remove('fa-regular');
-      icon.classList.add('fa-solid');
     }
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
@@ -74,10 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
     const icon = btn.querySelector('i');
-    if (wishlist.some(item => item.id == id)) {
+    if (wishlist.find(item => item.id == id)) {
       btn.classList.add('active');
-      icon.classList.remove('fa-regular');
-      icon.classList.add('fa-solid');
     }
   });
 });
