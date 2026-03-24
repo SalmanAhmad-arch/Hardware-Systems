@@ -51,8 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
       wishlist.splice(index, 1);
       btn.classList.remove('active');
     } else {
-      wishlist.push({id});
+      wishlist.push({id}); // id = handle now
       btn.classList.add('active');
+      window.location.href = "/pages/wishlist";
     }
 
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
