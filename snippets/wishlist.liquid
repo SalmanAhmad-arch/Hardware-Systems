@@ -33,37 +33,3 @@
 }
 {% endstylesheet %}
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-  document.body.addEventListener('click', function(e){
-    const btn = e.target.closest('.wishlist-btn');
-    if (!btn) return;
-
-    const id = btn.getAttribute('data-id');
-
-    wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-    const index = wishlist.findIndex(item => item.id == id);
-
-    if (index > -1) {
-      wishlist.splice(index, 1);
-      btn.classList.remove('active');
-    } else {
-      wishlist.push({ id });
-      btn.classList.add('active');
-    }
-
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  });
-
-  document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    const id = btn.getAttribute('data-id');
-
-    if (wishlist.find(item => item.id == id)) {
-      btn.classList.add('active');
-    }
-  });
-});
-</script>
