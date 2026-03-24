@@ -2,11 +2,13 @@
 {% assign product_id_str = product.id | append: '' %}
 
 <button
-  class="wishlist-btn{% if wishlist_ids contains product_id_str %} active{% endif %}"
-  data-product-id="{{ product.id }}"
-  aria-label="Add to wishlist"
+  class="wishlist-btn"
+  data-id="{{ product.id }}"
+  data-title="{{ product.title }}"
+  data-image="{{ product.featured_image | img_url: '300x' }}"
+  data-url="{{ product.url }}"
 >
-   <i class="fa-solid fa-heart"></i>
+  <i class="fa-solid fa-heart"></i>
 </button>
 {% stylesheet %}
   .wishlist-btn {
