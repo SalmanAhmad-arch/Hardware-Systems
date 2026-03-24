@@ -34,26 +34,37 @@
 }
 {% endstylesheet %}
 <script>
-(function() {
-  var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.dataset.id;
     const title = btn.dataset.title;
     const image = btn.dataset.image;
     const url = btn.dataset.url;
+    const icon = btn.querySelector('i');
+
+    // check already added
+    if (wishlist.find(p => p.id === id)) {
+      btn.classList.add('active');
+      icon.classList.replace('fa-regular', 'fa-solid');
+    }
 
     btn.addEventListener('click', () => {
       const exists = wishlist.find(p => p.id === id);
 
       if (exists) {
         wishlist = wishlist.filter(p => p.id !== id);
+        btn.classList.remove('active');
+        icon.classList.replace('fa-solid', 'fa-regular');
       } else {
         wishlist.push({ id, title, image, url });
+        btn.classList.add('active');
+        icon.classList.replace('fa-regular', 'fa-solid');
       }
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     });
   });
-})();
+});
 </script>
