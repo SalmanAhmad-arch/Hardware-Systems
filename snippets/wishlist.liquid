@@ -1,5 +1,7 @@
+{% assign product_id_str = product.id | append: '' %}
+
 <button
-  class="wishlist-btn{% if product.id | string | in: wishlist_ids %} active{% endif %}"
+  class="wishlist-btn{% if wishlist_ids contains product_id_str %} active{% endif %}"
   data-product-id="{{ product.id }}"
   aria-label="Add to wishlist"
 >
