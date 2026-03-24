@@ -29,7 +29,7 @@
   const grid = document.getElementById('wishlistGrid');
   const emptyMsg = document.getElementById('emptyMsg');
 
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
   if (wishlist.length === 0) {
     emptyMsg.style.display = 'block';
