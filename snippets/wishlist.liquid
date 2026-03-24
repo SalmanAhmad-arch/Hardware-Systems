@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
 
-  // Set active state on load
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
     const icon = btn.querySelector('i');
