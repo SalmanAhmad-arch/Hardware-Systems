@@ -38,18 +38,31 @@ let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
-    const id = btn.getAttribute('data-product-id');
+    const id = btn.dataset.id;
+    const title = btn.dataset.title;
+    const image = btn.dataset.image;
+    const url = btn.dataset.url;
+    const icon = btn.querySelector('i');
 
-    if (wishlist.includes(id)) btn.classList.add('active');
+    // check already added
+    if (wishlist.find(p => p.id === id)) {
+      btn.classList.add('active');
+      icon.classList.replace('fa-regular', 'fa-solid');
+    }
 
     btn.addEventListener('click', () => {
-      if (wishlist.includes(id)) {
-        wishlist = wishlist.filter(pid => pid !== id);
+      const exists = wishlist.find(p => p.id === id);
+
+      if (exists) {
+        wishlist = wishlist.filter(p => p.id !== id);
         btn.classList.remove('active');
+        icon.classList.replace('fa-solid', 'fa-regular');
       } else {
-        wishlist.push(id);
+        wishlist.push({ id, title, image, url });
         btn.classList.add('active');
+        icon.classList.replace('fa-regular', 'fa-solid');
       }
+
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
     });
   });
