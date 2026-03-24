@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 {% assign product_id_str = product.id | append: '' %}
 
 <button
@@ -7,11 +8,13 @@
   data-title="{{ product.title }}"
   data-image="{{ product.featured_image | img_url: '300x' }}"
   data-url="{{ product.url }}"
+  data-price="{{ product.price | money }}"
 >
- <i class="fa-regular fa-heart"></i>
+  <i class="fa-regular fa-heart"></i>
 </button>
+
 {% stylesheet %}
-  .wishlist-btn {
+.wishlist-btn {
   position: relative;
   top: 0px;
   right: 0px;
@@ -33,42 +36,42 @@
   color: red;
 }
 {% endstylesheet %}
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  // Use event delegation
+  // Event delegation for dynamic buttons
   document.body.addEventListener('click', function(e){
-    if (e.target.closest('.wishlist-btn')) {
-      const btn = e.target.closest('.wishlist-btn');
+    const btn = e.target.closest('.wishlist-btn');
+    if (!btn) return;
 
-      const id = btn.getAttribute('data-id');
-      const title = btn.getAttribute('data-title');
-      const image = btn.getAttribute('data-image');
-      const url = btn.getAttribute('data-url');
-      const icon = btn.querySelector('i');
+    const id = btn.getAttribute('data-id');
+    const title = btn.getAttribute('data-title');
+    const image = btn.getAttribute('data-image');
+    const url = btn.getAttribute('data-url');
+    const price = btn.getAttribute('data-price');
+    const icon = btn.querySelector('i');
 
-      wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const index = wishlist.findIndex(item => item.id == id);
 
-      const index = wishlist.findIndex(item => item.id == id);
-
-      if (index > -1) {
-        wishlist.splice(index, 1);
-        btn.classList.remove('active');
-        icon.classList.remove('fa-solid');
-        icon.classList.add('fa-regular');
-      } else {
-        wishlist.push({ id, title, image, url });
-        btn.classList.add('active');
-        icon.classList.remove('fa-regular');
-        icon.classList.add('fa-solid');
-      }
-
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    if (index > -1) {
+      wishlist.splice(index, 1);
+      btn.classList.remove('active');
+      icon.classList.remove('fa-solid');
+      icon.classList.add('fa-regular');
+    } else {
+      wishlist.push({ id, title, image, url, price });
+      btn.classList.add('active');
+      icon.classList.remove('fa-regular');
+      icon.classList.add('fa-solid');
     }
+
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
   });
 
-  // Initial render hearts
+  // Set active state on load
   document.querySelectorAll('.wishlist-btn').forEach(btn => {
     const id = btn.getAttribute('data-id');
     const icon = btn.querySelector('i');
