@@ -274,6 +274,7 @@
                                     Premium quality {{ product.title | downcase }} for your architectural needs.
                                 {% endif %}
                             </p>
+                             {% render 'wishlist', product: card_product %}
                             <a href="{{ product.url }}" class="view-system-ss">View System</a>
                         </div>
                     </div>

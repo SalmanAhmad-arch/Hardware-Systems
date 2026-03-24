@@ -29,3 +29,25 @@
   color: red;
 }
 {% endstylesheet %}
+<script>
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    const id = btn.getAttribute('data-product-id');
+
+    if (wishlist.includes(id)) btn.classList.add('active');
+
+    btn.addEventListener('click', () => {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(pid => pid !== id);
+        btn.classList.remove('active');
+      } else {
+        wishlist.push(id);
+        btn.classList.add('active');
+      }
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    });
+  });
+});
+</script>
