@@ -44,10 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const url = btn.dataset.url;
     const icon = btn.querySelector('i');
 
-    // check already added
+    // already added check
     if (wishlist.find(p => p.id === id)) {
       btn.classList.add('active');
-      icon.classList.replace('fa-regular', 'fa-solid');
+      icon.classList.remove('fa-regular');
+      icon.classList.add('fa-solid');
     }
 
     btn.addEventListener('click', () => {
@@ -56,11 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (exists) {
         wishlist = wishlist.filter(p => p.id !== id);
         btn.classList.remove('active');
-        icon.classList.replace('fa-solid', 'fa-regular');
+        icon.classList.remove('fa-solid');
+        icon.classList.add('fa-regular');
       } else {
         wishlist.push({ id, title, image, url });
         btn.classList.add('active');
-        icon.classList.replace('fa-regular', 'fa-solid');
+        icon.classList.remove('fa-regular');
+        icon.classList.add('fa-solid');
       }
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
