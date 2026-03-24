@@ -35,39 +35,29 @@
 {% endstylesheet %}
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+  // Use event delegation
+  document.body.addEventListener('click', function(e){
+    if (e.target.closest('.wishlist-btn')) {
+      const btn = e.target.closest('.wishlist-btn');
 
-    const id = btn.getAttribute('data-id');
-    const title = btn.getAttribute('data-title');
-    const image = btn.getAttribute('data-image');
-    const url = btn.getAttribute('data-url');
+      const id = btn.getAttribute('data-id');
+      const title = btn.getAttribute('data-title');
+      const image = btn.getAttribute('data-image');
+      const url = btn.getAttribute('data-url');
+      const icon = btn.querySelector('i');
 
-    const icon = btn.querySelector('i');
-
-    // check already added
-    if (wishlist.some(item => item.id == id)) {
-      btn.classList.add('active');
-      icon.classList.remove('fa-regular');
-      icon.classList.add('fa-solid');
-    }
-
-    btn.addEventListener('click', function () {
-
-      let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+      wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
       const index = wishlist.findIndex(item => item.id == id);
 
       if (index > -1) {
-        // remove
         wishlist.splice(index, 1);
         btn.classList.remove('active');
         icon.classList.remove('fa-solid');
         icon.classList.add('fa-regular');
       } else {
-        // add
         wishlist.push({ id, title, image, url });
         btn.classList.add('active');
         icon.classList.remove('fa-regular');
@@ -75,9 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    });
-
+    }
   });
 
+  // Initial render hearts
+  document.querySelectorAll('.wishlist-btn').forEach(btn => {
+    const id = btn.getAttribute('data-id');
+    const icon = btn.querySelector('i');
+    if (wishlist.some(item => item.id == id)) {
+      btn.classList.add('active');
+      icon.classList.remove('fa-regular');
+      icon.classList.add('fa-solid');
+    }
+  });
 });
 </script>
