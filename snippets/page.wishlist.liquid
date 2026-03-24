@@ -25,28 +25,30 @@
 }
 {% endstylesheet %}
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('wishlistGrid');
   const emptyMsg = document.getElementById('emptyMsg');
 
-  var wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
+  // Empty state
   if (wishlist.length === 0) {
     emptyMsg.style.display = 'block';
     return;
   }
 
+  // Render items
   wishlist.forEach(product => {
     const card = `
       <div class="wishlist-card">
         <img src="${product.image}" alt="${product.title}">
         <h3>${product.title}</h3>
-        <p>${product.price}</p>
+        <p>${product.price ? product.price : ''}</p>
         <a href="${product.url}">View Product</a>
       </div>
     `;
     grid.innerHTML += card;
   });
 });
-console.log(id, title, image, url);
+
     </script>
