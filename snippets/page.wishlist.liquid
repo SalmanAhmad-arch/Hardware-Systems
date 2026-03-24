@@ -19,6 +19,7 @@
   object-fit: cover;
 }
 {% endstylesheet %}
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
@@ -51,3 +52,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+</script>
