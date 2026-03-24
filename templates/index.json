@@ -1,1 +1,70 @@
-{"sections":{"mycontent_kNG9Ux":{"type":"mycontent","name":"custom page","settings":{"small_heading":"OPUS HARDWARE","main_heading":"Hardware Systems","description":"Precision-engineered architectural hardware systems for glass, doors, and facades. Designed for professionals who demand excellence.","button_text":"EXPLORE SYSTEMS ↓","button_link":"shopify:\/\/collections\/balustarde-pool","text_color":"#ffffff","subtext_color":"#ffffffcc","heading_size":68,"button_bg":"#000000","button_text_color":"#ffffff","button_border":"#ffffff"}},"product_content_Hmc7ik":{"type":"productContent","name":"product page","settings":{"tag_text":"BROWSE BY CATEGORY","heading":"System Categories","big_heading":"Balustrade & Pool","big_text":"Premium glass balustrade and pool fencing systems for residential and commercial projects.","button_text":"EXPLORE SYSTEMS →","button_link":"","butn_text":"EXPLORE SYSTEMS →","butn_link":"","card1_heading":"Sliding Door","card1_text":"High-performance sliding door track and hardware system for seamless indoor-outdoor living.","card1_button":"EXPLORE SYSTEMS →","card1_link":"","card2_heading":"Shower","card2_text":"Precision-engineered shower screen hardware and enclosure systems for modern bathrooms.","card2_button":"EXPLORE SYSTEMS →","card2_link":"","card3_heading":"Canopy & Facade","card3_text":"Structural glass canopy and facade fixing systems for striking architectural statements.","card3_button":"EXPLORE SYSTEMS →","card3_link":"","card4_heading":"Commercial Doors & Partitions","card4_text":"Heavy-duty commercial door and glass partition systems for offices, retail and hospitality.","card4_button":"EXPLORE SYSTEMS →","card4_link":""}},"card_content_wqkxQW":{"type":"cardContent","name":"Cards Section","settings":{"card-head":"SmartLock™ Channel","card-p":"Minimalist frameless glass panels with concealed channel fixings."}}},"order":["mycontent_kNG9Ux","product_content_Hmc7ik","card_content_wqkxQW"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "custom_liquid_tynkce": {
+      "type": "custom-liquid",
+      "name": "wishlist",
+      "settings": {
+        "custom_liquid": "<div id=\"wishlist-container\"></div>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', async () => {\n  const container = document.getElementById('wishlist-container');\n  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];\n\n  if (wishlist.length === 0) {\n    container.innerHTML = \"<p>Your wishlist is empty</p>\";\n    return;\n  }\n\n  for (let item of wishlist) {\n    try {\n      let response = await fetch(`/products/${item.id}.js`);\n      let product = await response.json();\n\n      let productHTML = `\n        <div class=\"wishlist-card\">\n          <img src=\"${product.images[0]}\" width=\"150\"/>\n          <h3>${product.title}</h3>\n          <p>${product.price / 100} PKR</p>\n          <a href=\"/products/${product.handle}\">View Product</a>\n        </div>\n      `;\n\n      container.innerHTML += productHTML;\n\n    } catch (error) {\n      console.log(error);\n    }\n  }\n});\n</script>",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    },
+    "mycontent_kNG9Ux": {
+      "type": "mycontent",
+      "name": "custom page",
+      "settings": {
+        "small_heading": "OPUS HARDWARE",
+        "main_heading": "Hardware Systems",
+        "description": "Precision-engineered architectural hardware systems for glass, doors, and facades. Designed for professionals who demand excellence.",
+        "text_color": "#ffffff",
+        "subtext_color": "#ffffffcc",
+        "heading_size": 68,
+        "button_bg": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border": "#ffffff"
+      }
+    },
+    "product_content_Hmc7ik": {
+      "type": "productContent",
+      "name": "product page",
+      "settings": {
+        "tag_text": "BROWSE BY CATEGORY",
+        "heading": "System Categories",
+        "big_heading": "Balustrade & Pool",
+        "big_text": "Premium glass balustrade and pool fencing systems for residential and commercial projects.",
+        "card1_heading": "Sliding Door",
+        "card1_text": "High-performance sliding door track and hardware system for seamless indoor-outdoor living.",
+        "card2_heading": "Shower",
+        "card2_text": "Precision-engineered shower screen hardware and enclosure systems for modern bathrooms.",
+        "card3_heading": "Canopy & Facade",
+        "card3_text": "Structural glass canopy and facade fixing systems for striking architectural statements.",
+        "card4_heading": "Commercial Doors & Partitions",
+        "card4_text": "Heavy-duty commercial door and glass partition systems for offices, retail and hospitality."
+      }
+    },
+    "card_content_wqkxQW": {
+      "type": "cardContent",
+      "name": "Cards Section",
+      "settings": {
+        "section_title": "Systems",
+        "all_button_text": "All Systems"
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_tynkce",
+    "mycontent_kNG9Ux",
+    "product_content_Hmc7ik",
+    "card_content_wqkxQW"
+  ]
+}
