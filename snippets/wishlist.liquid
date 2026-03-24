@@ -5,25 +5,24 @@
 
 {% stylesheet %}
 .wishlist-btn {
-  position: relative;
-  top: 0px;
-  right: 0px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: white;
   border: none;
-  padding: 20px 20px;
+  padding: 10px;
   cursor: pointer;
-  font-size: 28px;
-  z-index: 2;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+  font-size: 20px;
+  z-index: 10;
+}
+
+.wishlist-btn.active {
+  color: red;
 }
 
 .wishlist-btn:hover {
   transform: scale(1.2);
 }
 
-.wishlist-btn.active {
-  color: red;
-}
 {% endstylesheet %}
 
