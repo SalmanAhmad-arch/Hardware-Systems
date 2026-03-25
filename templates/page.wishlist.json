@@ -9,16 +9,13 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
+    "wishlist": {
+      "type": "page-wishlist",
       "disabled": true,
-      "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
-      }
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "wishlist"
   ]
 }
