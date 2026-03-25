@@ -26,7 +26,6 @@
   transform: scale(1.2);
 }
 </style>
-
 <script>
 document.addEventListener("click", e => {
   if (!e.target.closest(".wishlist-btn")) return;
@@ -34,9 +33,11 @@ document.addEventListener("click", e => {
   const btn = e.target.closest(".wishlist-btn");
   const card = btn.closest(".system-card-ss");
 
-  // Collect product data from card
+  const productId = card.dataset.productId;
+  if (!productId) return; // skip cards without a valid id
+
   const product = {
-    id: card.dataset.productId,
+    id: productId,
     handle: btn.dataset.handle,
     title: card.querySelector(".card-title-ss").innerText,
     description: card.querySelector(".card-description-ss").innerText,
@@ -46,19 +47,13 @@ document.addEventListener("click", e => {
 
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-  const exists = wishlist.find(i => i.handle === product.handle);
-  if (!exists) {
+  // Avoid duplicates
+  if (!wishlist.find(p => p.id === product.id)) {
     wishlist.push(product);
-    btn.classList.add("active");
-  } else {
-    // Optional: remove if already exists
-    wishlist = wishlist.filter(i => i.handle !== product.handle);
-    btn.classList.remove("active");
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }
 
-  localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
-  // Redirect to wishlist page
- window.location.href = "/pages/page-wishlist-liquid";
+  // Redirect to correct wishlist page
+  window.location.href = "/pages/page-wishlist-liquid";
 });
 </script>
