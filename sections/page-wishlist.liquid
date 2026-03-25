@@ -1,232 +1,309 @@
 <style>
-/* 🎯 GRID CONTAINER */
-.cards-grid-ss {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
-  padding: 40px 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+/* 🎯 EXACT SAME STYLING AS PRODUCT GRID */
+.wishlist-section-ss {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    background: #f8f9fa;
 }
 
-/* 🎯 INDIVIDUAL CARD */
+.wishlist-section-ss * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Section Header */
+.wishlist-header-ss {
+    margin-bottom: 40px;
+}
+
+.wishlist-subtitle-ss {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.wishlist-title-ss {
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+/* Cards Grid - EXACT SAME AS PRODUCT GRID */
+.cards-grid-ss {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
 .system-card-ss {
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  position: relative;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
 }
 
 .system-card-ss:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
 }
 
-/* 🎯 IMAGE WRAPPER */
 .card-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 280px;
-  overflow: hidden;
-  background: #f5f5f5;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    position: relative;
 }
 
 .card-image-ss {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
 .system-card-ss:hover .card-image-ss {
-  transform: scale(1.05);
+    transform: scale(1.08);
 }
 
-/* 🎯 CARD CONTENT */
 .card-content-ss {
-  padding: 20px;
-  position: relative;
+    padding: 28px;
+    background: white;
 }
 
 .card-title-ss {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0 0 10px 0;
-  line-height: 1.3;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.3;
 }
 
 .card-description-ss {
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-  margin: 0 0 20px 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* 🎯 WISHLIST BUTTON (Heart) */
-.wishlist-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  z-index: 10;
+/* 🎯 WISHLIST REMOVE BUTTON (Heart Style) */
+.wishlist-remove-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #ff4444;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 10;
 }
 
-.wishlist-btn:hover {
-  transform: scale(1.1);
-  background: #ff4444;
-  color: #fff;
+.wishlist-remove-btn:hover {
+    transform: scale(1.1);
+    background: #cc0000;
 }
 
-.wishlist-btn.active {
-  background: #ff4444;
-  color: #fff;
+.wishlist-remove-btn i {
+    font-size: 16px;
 }
 
-.wishlist-btn i {
-  font-size: 16px;
-}
-
-/* 🎯 VIEW BUTTON */
+/* View System Link - EXACT SAME */
 .view-system-ss {
-  display: inline-block;
-  padding: 12px 24px;
-  background: #1a1a1a;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-  width: 100%;
-  text-align: center;
-  box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: gap 0.3s ease;
 }
 
 .view-system-ss:hover {
-  background: #333;
-  transform: translateY(-2px);
+    gap: 12px;
 }
 
-/* 🎯 EMPTY STATE */
-.empty-wishlist {
-  text-align: center;
-  padding: 80px 20px;
-  color: #666;
-  font-size: 18px;
-  grid-column: 1 / -1;
+.view-system-ss::after {
+    content: '→';
+    font-size: 16px;
 }
 
-.empty-wishlist i {
-  font-size: 64px;
-  color: #ddd;
-  margin-bottom: 20px;
-  display: block;
+/* Empty State */
+.empty-wishlist-ss {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 4px;
 }
 
-/* 🎯 RESPONSIVE */
+.empty-wishlist-ss i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.empty-wishlist-ss p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.empty-wishlist-ss a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1a1a1a;
+    text-decoration: none;
+    padding: 12px 24px;
+    border: 1px solid #1a1a1a;
+    transition: all 0.3s ease;
+}
+
+.empty-wishlist-ss a:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Responsive - EXACT SAME BREAKPOINTS */
 @media (max-width: 1024px) {
-  .cards-grid-ss {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
+    .cards-grid-ss {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media (max-width: 600px) {
-  .cards-grid-ss {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 20px 15px;
-  }
-  
-  .card-image-wrapper {
-    height: 220px;
-  }
+@media (max-width: 768px) {
+    .wishlist-section-ss {
+        padding: 40px 15px;
+    }
+    
+    .cards-grid-ss {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .wishlist-title-ss {
+        font-size: 28px;
+    }
+    
+    .card-image-wrapper {
+        height: 240px;
+    }
+    
+    .card-content-ss {
+        padding: 20px;
+    }
 }
 </style>
 
-<!-- Font Awesome CDN -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<div id="wishlist-container" class="cards-grid-ss"></div>
+<div class="wishlist-section-ss">
+    <!-- Section Header -->
+    <div class="wishlist-header-ss">
+        <div class="wishlist-subtitle-ss" id="wishlistCount">0 Products</div>
+        <h2 class="wishlist-title-ss">My Wishlist</h2>
+    </div>
+
+    <!-- Cards Grid -->
+    <div id="wishlist-container" class="cards-grid-ss"></div>
+</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('wishlist-container');
+    const container = document.getElementById('wishlist-container');
+    const countElement = document.getElementById('wishlistCount');
 
-  function renderWishlist() {
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    
-    // Clean corrupted data
-    wishlist = wishlist.filter(p => p && p.id && p.handle);
+    function renderWishlist() {
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        
+        // Clean corrupted data
+        wishlist = wishlist.filter(p => p && p.id && p.handle);
+        
+        // Update count
+        countElement.textContent = `${wishlist.length} Product${wishlist.length !== 1 ? 's' : ''}`;
 
-    if (!wishlist.length) {
-      container.innerHTML = `
-        <div class="empty-wishlist">
-          <i class="fa-regular fa-heart"></i>
-          <p>Your wishlist is empty.</p>
-          <a href="/collections/all" style="color: #1a1a1a; text-decoration: underline;">Continue Shopping</a>
-        </div>
-      `;
-      return;
+        if (!wishlist.length) {
+            container.innerHTML = `
+                <div class="empty-wishlist-ss">
+                    <i class="fa-regular fa-heart"></i>
+                    <p>Your wishlist is empty.</p>
+                    <a href="/collections/all">Continue Shopping →</a>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = wishlist.map(product => `
+            <div class="system-card-ss" data-product-id="${product.id}">
+                <div class="card-image-wrapper">
+                    <img src="${product.image || 'https://via.placeholder.com/600x450?text=No+Image'}" 
+                         alt="${product.title || 'Product'}" 
+                         class="card-image-ss"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/600x450?text=No+Image'">
+                    
+                    <button type="button" class="wishlist-remove-btn" data-handle="${product.handle}" title="Remove from wishlist">
+                        <i class="fa-solid fa-heart-crack"></i>
+                    </button>
+                </div>
+                
+                <div class="card-content-ss">
+                    <h3 class="card-title-ss">${product.title || 'Untitled Product'}</h3>
+                    <p class="card-description-ss">${product.description || 'Premium quality product for your architectural needs.'}</p>
+                    <a href="${product.url || '#'}" class="view-system-ss">View System</a>
+                </div>
+            </div>
+        `).join('');
     }
 
-    container.innerHTML = wishlist.map(product => `
-      <div class="system-card-ss" data-product-id="${product.id}">
-        <div class="card-image-wrapper">
-          <img src="${product.image || 'https://via.placeholder.com/400x300?text=No+Image'}" 
-               alt="${product.title || 'Product'}" 
-               class="card-image-ss"
-               onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'"/>
-          
-          <button type="button" class="wishlist-btn active" data-handle="${product.handle}" title="Remove from wishlist">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-        </div>
+    // Remove handler
+    container.addEventListener('click', function(e) {
+        const btn = e.target.closest('.wishlist-remove-btn');
+        if (!btn) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const handleToRemove = btn.dataset.handle;
         
-        <div class="card-content-ss">
-          <h3 class="card-title-ss">${product.title || 'Untitled Product'}</h3>
-          <p class="card-description-ss">${product.description || 'No description available'}</p>
-          <a href="${product.url || '#'}" class="view-system-ss">View System</a>
-        </div>
-      </div>
-    `).join('');
-  }
+        let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+        wishlist = wishlist.filter(p => p && p.handle && p.handle !== handleToRemove);
+        
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        renderWishlist();
+    });
 
-  // Remove handler
-  container.addEventListener('click', function(e) {
-    const btn = e.target.closest('.wishlist-btn');
-    if (!btn) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    const handleToRemove = btn.dataset.handle;
-    
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    wishlist = wishlist.filter(p => p && p.handle && p.handle !== handleToRemove);
-    
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
     renderWishlist();
-  });
-
-  renderWishlist();
 });
 </script>
