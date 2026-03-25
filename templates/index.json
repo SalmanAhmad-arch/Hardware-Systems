@@ -49,30 +49,11 @@
         "section_title": "Systems",
         "all_button_text": "All Systems"
       }
-    },
-    "product_content_k8q9AJ": {
-      "type": "productContent",
-      "name": "Categories Section",
-      "settings": {
-        "tag_text": "BROWSE BY CATEGORY",
-        "heading": "System Categories",
-        "big_heading": "Balustrade & Pool",
-        "big_text": "Premium glass balustrade and pool fencing systems for residential and commercial projects.",
-        "card1_heading": "Sliding Door",
-        "card1_text": "High-performance sliding door track and hardware system for seamless indoor-outdoor living.",
-        "card2_heading": "Shower",
-        "card2_text": "Precision-engineered shower screen hardware and enclosure systems for modern bathrooms.",
-        "card3_heading": "Canopy & Facades",
-        "card3_text": "Structural glass canopy and facade fixing systems for striking architectural statements.",
-        "card4_heading": "Commercial Doors & Partitions",
-        "card4_text": "Heavy-duty commercial door and glass partition systems for offices, retail and hospitality."
-      }
     }
   },
   "order": [
     "mycontent_kNG9Ux",
     "product_content_Hmc7ik",
-    "card_content_wqkxQW",
-    "product_content_k8q9AJ"
+    "card_content_wqkxQW"
   ]
 }
