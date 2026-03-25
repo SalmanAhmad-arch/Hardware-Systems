@@ -16,9 +16,15 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "page_wishlist_i4hpwD": {
+      "type": "page-wishlist",
+      "name": "wishlist",
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "page_wishlist_i4hpwD"
   ]
 }
