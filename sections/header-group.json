@@ -18,6 +18,7 @@
     },
     "custom_liquid_PLG7BY": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "my wishlist",
       "settings": {
         "custom_liquid": "<h1> My Wishlist</h1>\n<div id=\"wishlist-container\"></div>\n\n<style>\n.wishlist-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}\n\n.wishlist-card {\n  border: 1px solid #eee;\n  padding: 15px;\n  text-align: center;\n}\n\n.wishlist-card img {\n  width: 100%;\n  height: 200px;\n  object-fit: cover;\n}\n</style>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', async () => {\n  const container = document.getElementById('wishlist-container');\n  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];\n\n  if (wishlist.length === 0) {\n    container.innerHTML = \"<p>Your wishlist is empty</p>\";\n    return;\n  }\n\n  container.classList.add('wishlist-grid');\n\n  for (let item of wishlist) {\n    try {\n      let response = await fetch(`/products/${item.id}.js`);\n      let product = await response.json();\n\n      let productHTML = `\n        <div class=\"wishlist-card\">\n          <img src=\"${product.images[0] || ''}\" />\n          <h3>${product.title}</h3>\n          <p>${product.price / 100} PKR</p>\n          <a href=\"/products/${product.handle}\">View Product</a>\n        </div>\n      `;\n\n      container.innerHTML += productHTML;\n\n    } catch (error) {\n      console.log(\"Error loading product\", error);\n    }\n  }\n});\n</script>",
