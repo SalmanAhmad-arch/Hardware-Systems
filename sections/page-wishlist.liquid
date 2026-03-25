@@ -3,45 +3,51 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('wishlist-container');
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-  if (!wishlist.length) {
-    container.innerHTML = "<p>Your wishlist is empty.</p>";
-    return;
-  }
-
-  container.innerHTML = "";
-
-  wishlist.forEach(product => {
-    container.innerHTML += `
-      <div class="system-card-ss" data-product-id="${product.id}">
-        <div class="card-image-wrapper">
-          <img src="${product.image}" alt="${product.title}" class="card-image-ss"/>
-        </div>
-        <div class="card-content-ss">
-          <h3 class="card-title-ss">${product.title}</h3>
-          <p class="card-description-ss">${product.description}</p>
-          <button class="wishlist-btn active" data-handle="${product.handle}">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-          <a href="${product.url}" class="view-system-ss">View System</a>
-        </div>
-      </div>
-    `;
-  });
-
-  // Remove from wishlist
-  container.addEventListener('click', e => {
-    if (!e.target.closest('.wishlist-btn')) return;
-    const btn = e.target.closest('.wishlist-btn');
-
-    wishlist = wishlist.filter(p => p.handle !== btn.dataset.handle);
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    btn.closest('.system-card-ss').remove();
+  
+  function renderWishlist() {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
     if (!wishlist.length) {
       container.innerHTML = "<p>Your wishlist is empty.</p>";
+      return;
     }
+
+    container.innerHTML = wishlist.map(product => {
+      // Fix image URL
+      const imageUrl = product.image?.startsWith('http') 
+        ? product.image 
+        : 'https:' + (product.image || '//cdn.shopify.com/s/files/1/1021/8078/2161/files/placeholder.jpg');
+
+      return `
+        <div class="system-card-ss" data-product-id="${product.id}">
+          <div class="card-image-wrapper">
+            <img src="${imageUrl}" alt="${product.title}" class="card-image-ss" loading="lazy"/>
+          </div>
+          <div class="card-content-ss">
+            <h3 class="card-title-ss">${product.title}</h3>
+            <p class="card-description-ss">${product.description || ''}</p>
+            <button class="wishlist-btn active" data-handle="${product.handle}">
+              ❤️ Remove
+            </button>
+            <a href="${product.url}" class="view-system-ss">View System</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Remove handler with proper re-render
+  container.addEventListener('click', e => {
+    const btn = e.target.closest('.wishlist-btn');
+    if (!btn) return;
+
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = wishlist.filter(p => p.handle !== btn.dataset.handle);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    
+    renderWishlist(); // Re-render instead of manual DOM manipulation
   });
+
+  renderWishlist();
 });
 </script>
