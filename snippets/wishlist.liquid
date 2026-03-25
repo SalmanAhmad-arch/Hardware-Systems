@@ -1,11 +1,13 @@
+<!-- Include Font Awesome for the heart icon -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <button class="wishlist-btn" data-handle="{{ product.handle }}">
   <i class="fa-solid fa-heart"></i>
 </button>
 
-{% stylesheet %}
+<style>
 .wishlist-btn {
-  position: relative;
+  position: absolute;
   top: 10px;
   right: 10px;
   background: white;
@@ -23,8 +25,8 @@
 .wishlist-btn:hover {
   transform: scale(1.2);
 }
+</style>
 
-{% endstylesheet %}
 <script>
 document.addEventListener("click", e => {
   if (!e.target.closest(".wishlist-btn")) return;
@@ -32,7 +34,7 @@ document.addEventListener("click", e => {
   const btn = e.target.closest(".wishlist-btn");
   const card = btn.closest(".system-card-ss");
 
-  // Get product data from the card
+  // Collect product data from card
   const product = {
     id: card.dataset.productId,
     handle: btn.dataset.handle,
@@ -49,14 +51,14 @@ document.addEventListener("click", e => {
     wishlist.push(product);
     btn.classList.add("active");
   } else {
-    // Optional: remove from wishlist if already added
+    // Optional: remove if already exists
     wishlist = wishlist.filter(i => i.handle !== product.handle);
     btn.classList.remove("active");
   }
 
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  // Navigate to wishlist page
+
+  // Redirect to wishlist page
   window.location.href = "/pages/wishlist";
 });
 </script>
-
