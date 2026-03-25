@@ -21,35 +21,54 @@
 }
 {% endstylesheet %}
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('wishlist-container');
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
-  if (wishlist.length === 0) {
+  if (!wishlist.length) {
     container.innerHTML = "<p>Your wishlist is empty</p>";
     return;
   }
 
-  for (let item of wishlist) {
-    try {
-      let response = await fetch(`/products/${item.id}.js`);
-      let product = await response.json();
+  container.innerHTML = ""; // Clear container
 
-      let productHTML = `
-        <div class="wishlist-card">
-          <img src="${product.images[0]}" />
-          <h3>${product.title}</h3>
-          <p>${product.price / 100} PKR</p>
-          <a href="/products/${product.handle}">View Product</a>
+  wishlist.forEach(product => {
+    const productHTML = `
+      <div class="system-card-ss" data-product-id="${product.id}" data-collections="">
+        <div class="card-image-wrapper">
+          <img src="${product.image}" alt="${product.title}" class="card-image-ss"/>
         </div>
-      `;
+        <div class="card-content-ss">
+          <h3 class="card-title-ss">${product.title}</h3>
+          <p class="card-description-ss">${product.description}</p>
+          <button class="wishlist-btn active" data-handle="${product.handle}">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+          <a href="${product.url}" class="view-system-ss">View System</a>
+        </div>
+      </div>
+    `;
+    container.innerHTML += productHTML;
+  });
 
-      container.innerHTML += productHTML;
+  // Handle removing from wishlist on wishlist page
+  container.addEventListener('click', e => {
+    if (!e.target.closest('.wishlist-btn')) return;
 
-    } catch (error) {
-      console.log("Error loading product", error);
+    const btn = e.target.closest(".wishlist-btn");
+    const handle = btn.dataset.handle;
+
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = wishlist.filter(i => i.handle !== handle);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+    // Remove card from DOM
+    btn.closest('.system-card-ss').remove();
+
+    if (wishlist.length === 0) {
+      container.innerHTML = "<p>Your wishlist is empty</p>";
     }
-  }
+  });
 });
 </script>
 {% schema %}
