@@ -34,10 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
   container.addEventListener('click', e => {
     if (!e.target.closest('.wishlist-btn')) return;
     const btn = e.target.closest('.wishlist-btn');
+
     wishlist = wishlist.filter(p => p.handle !== btn.dataset.handle);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     btn.closest('.system-card-ss').remove();
-    if (!wishlist.length) container.innerHTML = "<p>Your wishlist is empty.</p>";
+
+    if (!wishlist.length) {
+      container.innerHTML = "<p>Your wishlist is empty.</p>";
+    }
   });
 });
 </script>
