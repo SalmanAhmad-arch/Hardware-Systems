@@ -1,43 +1,85 @@
 <h1>My Wishlist</h1>
-<div id="wishlist-container"></div>
+<div id="wishlist-container" class="cards-grid-ss"></div>
 
-{% stylesheet %}
-.wishlist-grid {
+<style>
+.wishlist-grid, #wishlist-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 30px;
 }
 
-.wishlist-card {
-  border: 1px solid #eee;
-  padding: 15px;
-  text-align: center;
+.wishlist-card, .system-card-ss {
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
 }
 
-.wishlist-card img {
+.wishlist-card:hover, .system-card-ss:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.card-image-wrapper {
   width: 100%;
-  height: 200px;
+  height: 280px;
+  overflow: hidden;
+}
+
+.card-image-ss {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
-#wishlist-container .system-card-ss {
-  cursor: default;
+
+.system-card-ss:hover .card-image-ss {
+  transform: scale(1.08);
 }
-{% endstylesheet %}
+
+.card-content-ss {
+  padding: 28px;
+  background: white;
+}
+
+.card-title-ss {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.card-description-ss {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.wishlist-btn {
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: red;
+  margin-bottom: 10px;
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('wishlist-container');
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
   if (!wishlist.length) {
-    container.innerHTML = "<p>Your wishlist is empty</p>";
+    container.innerHTML = "<p>Your wishlist is empty.</p>";
     return;
   }
 
-  container.innerHTML = ""; // Clear container
+  container.innerHTML = ""; // clear
 
   wishlist.forEach(product => {
     const productHTML = `
-      <div class="system-card-ss" data-product-id="${product.id}" data-collections="">
+      <div class="system-card-ss" data-product-id="${product.id}">
         <div class="card-image-wrapper">
           <img src="${product.image}" alt="${product.title}" class="card-image-ss"/>
         </div>
@@ -54,14 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
     container.innerHTML += productHTML;
   });
 
-  // Handle removing from wishlist on wishlist page
+  // Handle removing from wishlist
   container.addEventListener('click', e => {
     if (!e.target.closest('.wishlist-btn')) return;
 
-    const btn = e.target.closest(".wishlist-btn");
+    const btn = e.target.closest('.wishlist-btn');
     const handle = btn.dataset.handle;
 
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     wishlist = wishlist.filter(i => i.handle !== handle);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
@@ -69,18 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.closest('.system-card-ss').remove();
 
     if (wishlist.length === 0) {
-      container.innerHTML = "<p>Your wishlist is empty</p>";
+      container.innerHTML = "<p>Your wishlist is empty.</p>";
     }
   });
 });
 </script>
-{% schema %}
-{
-  "name": "Wishlist Page",
-  "settings": [],
-  "presets": [
-    {
-      "name": "wishlist",
-  }]
-}
-{% endschema %}
