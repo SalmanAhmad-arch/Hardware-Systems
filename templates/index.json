@@ -9,16 +9,6 @@
  */
 {
   "sections": {
-    "custom_liquid_tynkce": {
-      "type": "custom-liquid",
-      "name": "wishlist",
-      "settings": {
-        "custom_liquid": "<div id=\"wishlist-container\"></div>\n\n<script>\ndocument.addEventListener('DOMContentLoaded', async () => {\n  const container = document.getElementById('wishlist-container');\n  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];\n\n  if (wishlist.length === 0) {\n    container.innerHTML = \"<p>Your wishlist is empty</p>\";\n    return;\n  }\n\n  for (let item of wishlist) {\n    try {\n      let response = await fetch(`/products/${item.id}.js`);\n      let product = await response.json();\n\n      let productHTML = `\n        <div class=\"wishlist-card\">\n          <img src=\"${product.images[0]}\" width=\"150\"/>\n          <h3>${product.title}</h3>\n          <p>${product.price / 100} PKR</p>\n          <a href=\"/products/${product.handle}\">View Product</a>\n        </div>\n      `;\n\n      container.innerHTML += productHTML;\n\n    } catch (error) {\n      console.log(error);\n    }\n  }\n});\n</script>",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
     "mycontent_kNG9Ux": {
       "type": "mycontent",
       "name": "custom page",
@@ -59,12 +49,30 @@
         "section_title": "Systems",
         "all_button_text": "All Systems"
       }
+    },
+    "product_content_k8q9AJ": {
+      "type": "productContent",
+      "name": "Categories Section",
+      "settings": {
+        "tag_text": "BROWSE BY CATEGORY",
+        "heading": "System Categories",
+        "big_heading": "Balustrade & Pool",
+        "big_text": "Premium glass balustrade and pool fencing systems for residential and commercial projects.",
+        "card1_heading": "Sliding Door",
+        "card1_text": "High-performance sliding door track and hardware system for seamless indoor-outdoor living.",
+        "card2_heading": "Shower",
+        "card2_text": "Precision-engineered shower screen hardware and enclosure systems for modern bathrooms.",
+        "card3_heading": "Canopy & Facades",
+        "card3_text": "Structural glass canopy and facade fixing systems for striking architectural statements.",
+        "card4_heading": "Commercial Doors & Partitions",
+        "card4_text": "Heavy-duty commercial door and glass partition systems for offices, retail and hospitality."
+      }
     }
   },
   "order": [
-    "custom_liquid_tynkce",
     "mycontent_kNG9Ux",
     "product_content_Hmc7ik",
-    "card_content_wqkxQW"
+    "card_content_wqkxQW",
+    "product_content_k8q9AJ"
   ]
 }
