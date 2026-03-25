@@ -1,9 +1,11 @@
 <div id="wishlist-container" class="cards-grid-ss"></div>
+<div id="wishlist-container" class="cards-grid-ss"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('wishlist-container');
   
+  // 🟢 FUNCTION: Render karo
   function renderWishlist() {
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 
@@ -12,42 +14,51 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    container.innerHTML = wishlist.map(product => {
-      // Fix image URL
-      const imageUrl = product.image?.startsWith('http') 
-        ? product.image 
-        : 'https:' + (product.image || '//cdn.shopify.com/s/files/1/1021/8078/2161/files/placeholder.jpg');
-
-      return `
-        <div class="system-card-ss" data-product-id="${product.id}">
-          <div class="card-image-wrapper">
-            <img src="${imageUrl}" alt="${product.title}" class="card-image-ss" loading="lazy"/>
-          </div>
-          <div class="card-content-ss">
-            <h3 class="card-title-ss">${product.title}</h3>
-            <p class="card-description-ss">${product.description || ''}</p>
-            <button class="wishlist-btn active" data-handle="${product.handle}">
-              ❤️ Remove
-            </button>
-            <a href="${product.url}" class="view-system-ss">View System</a>
-          </div>
+    // 🟢 HTML generate karo (innerHTML += mat use karo - slow aur buggy)
+    container.innerHTML = wishlist.map(product => `
+      <div class="system-card-ss" data-product-id="${product.id}">
+        <div class="card-image-wrapper">
+          <img src="${product.image || 'https://via.placeholder.com/300'}" 
+               alt="${product.title}" 
+               class="card-image-ss"/>
         </div>
-      `;
-    }).join('');
+        <div class="card-content-ss">
+          <h3 class="card-title-ss">${product.title}</h3>
+          <p class="card-description-ss">${product.description || ''}</p>
+          
+          <!-- 🟢 Button mein type="button" add karo (form submit na ho) -->
+          <button type="button" class="wishlist-btn active" data-handle="${product.handle}">
+            <i class="fa-solid fa-heart"></i> Remove
+          </button>
+          
+          <a href="${product.url}" class="view-system-ss">View System</a>
+        </div>
+      </div>
+    `).join('');
   }
 
-  // Remove handler with proper re-render
-  container.addEventListener('click', e => {
+  // 🟢 EVENT DELEGATION - Proper tarike se
+  container.addEventListener('click', function(e) {
+    // Button ya uske andar ka icon dono ko handle karo
     const btn = e.target.closest('.wishlist-btn');
-    if (!btn) return;
+    if (!btn) return; // Button pe click nahi hua to exit
 
+    e.preventDefault(); // 🟢 Default action roko
+    e.stopPropagation(); // 🟢 Event bubble roko
+
+    const handle = btn.dataset.handle;
+    console.log('Removing:', handle); // Debug ke liye
+
+    // 🟢 LocalStorage se remove karo
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    wishlist = wishlist.filter(p => p.handle !== btn.dataset.handle);
+    wishlist = wishlist.filter(p => p.handle !== handle);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
-    
-    renderWishlist(); // Re-render instead of manual DOM manipulation
+
+    // 🟢 Re-render karo (reliable hai)
+    renderWishlist();
   });
 
+  // Pehli baar render karo
   renderWishlist();
 });
 </script>
