@@ -25,4 +25,13 @@
 }
 
 {% endstylesheet %}
-
+<script>
+document.addEventListener("click", e => {
+  if (!e.target.classList.contains("wishlist-btn")) return;
+  let handle = e.target.dataset.handle;
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  if (!wishlist.find(i => i.handle === handle)) wishlist.push({ handle });
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  window.location.href = "/pages/wishlist";
+});
+</script>
