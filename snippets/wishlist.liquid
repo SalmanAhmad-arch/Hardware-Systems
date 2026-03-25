@@ -27,11 +27,35 @@
 {% endstylesheet %}
 <script>
 document.addEventListener("click", e => {
-  if (!e.target.classList.contains("wishlist-btn")) return;
-  let handle = e.target.dataset.handle;
+  if (!e.target.closest(".wishlist-btn")) return;
+
+  const btn = e.target.closest(".wishlist-btn");
+  const card = btn.closest(".system-card-ss");
+
+  // Get product data from the card
+  const product = {
+    id: card.dataset.productId,
+    handle: btn.dataset.handle,
+    title: card.querySelector(".card-title-ss").innerText,
+    description: card.querySelector(".card-description-ss").innerText,
+    image: card.querySelector(".card-image-ss")?.src || "",
+    url: card.querySelector(".view-system-ss").href
+  };
+
   let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-  if (!wishlist.find(i => i.handle === handle)) wishlist.push({ handle });
+
+  const exists = wishlist.find(i => i.handle === product.handle);
+  if (!exists) {
+    wishlist.push(product);
+    btn.classList.add("active");
+  } else {
+    // Optional: remove from wishlist if already added
+    wishlist = wishlist.filter(i => i.handle !== product.handle);
+    btn.classList.remove("active");
+  }
+
   localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  // Navigate to wishlist page
   window.location.href = "/pages/wishlist";
 });
 </script>
