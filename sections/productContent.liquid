@@ -228,7 +228,6 @@
         </div>
     </div>
 </section>
-
 <script>
 (function() {
     document.querySelectorAll('.categories .card').forEach(function(card) {
@@ -247,7 +246,6 @@
                 behavior: 'smooth'
             });
 
-            // 🔥 SAFE MATCH LOGIC
             setTimeout(function() {
                 let found = false;
 
@@ -255,12 +253,12 @@
                     const filter = btn.dataset.filter.toLowerCase().trim();
 
                     if (filter === collection) {
-                        btn.click();
+                        // 🔥 FIXED CLICK
+                        btn.dispatchEvent(new Event('click', { bubbles: true }));
                         found = true;
                     }
                 });
 
-                // ❗ fallback (agar match na mile)
                 if (!found) {
                     console.warn("No matching filter button found for:", collection);
                 }
