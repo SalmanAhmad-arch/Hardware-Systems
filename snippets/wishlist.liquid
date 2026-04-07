@@ -1,0 +1,113 @@
+<!-- Include Font Awesome for the heart icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<button class="wishlist-btn" data-handle="{{ product.handle }}"  data-product-id="{{ product.id }}">
+  <i class="fa-solid fa-heart"></i>
+</button>
+
+<style>
+.wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(6px);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Icon size */
+.wishlist-btn i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Hover */
+.wishlist-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Active (red heart) */
+.wishlist-btn.active i {
+  color: #ff3b3b;
+   transform: scale(1.1);
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Clean null items from wishlist
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  wishlist = wishlist.filter(item => item.id && item.id !== "null" && item.id !== "undefined");
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+  // Set active state on load
+  document.querySelectorAll(".wishlist-btn").forEach(btn => {
+    const card = btn.closest(".system-card-ss");
+    let productId = card?.dataset.productId || btn.dataset.productId || null;
+
+    if (productId && wishlist.find(p => p.id == productId)) {
+      btn.classList.add("active");
+    }
+  });
+});
+
+document.addEventListener("click", e => {
+  const btn = e.target.closest(".wishlist-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const card = btn.closest(".system-card-ss");
+  
+  // Get product ID
+  let productId = card?.dataset.productId || btn.dataset.productId || null;
+
+  // Validation
+  if (!productId || productId === "null" || productId === "undefined") {
+    return;
+  }
+
+  const product = {
+    id: String(productId),
+    handle: btn.dataset.handle || productId,
+    title: card?.querySelector(".card-title-ss")?.innerText?.trim() || "Unknown",
+    description: card?.querySelector(".card-description-ss")?.innerText?.trim() || "",
+    image: card?.querySelector(".card-image-ss")?.src || "",
+    url: card?.querySelector(".view-system-ss")?.href || window.location.href
+  };
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  
+  // Remove null items
+  wishlist = wishlist.filter(p => p.id && p.id !== "null");
+
+  const existingIndex = wishlist.findIndex(p => p.id == product.id);
+
+  if (existingIndex > -1) {
+    // Already in wishlist - toggle off
+    wishlist.splice(existingIndex, 1);
+    btn.classList.remove("active");
+    console.log("❌ Removed from wishlist");
+  } else {
+    // Add to wishlist
+    wishlist.push(product);
+    btn.classList.add("active");
+    console.log("✅ Added to wishlist:", product);
+  }
+
+  // ✅ Save to localStorage FIRST
+  localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  
+  // ✅ THEN redirect to wishlist page
+  window.location.href = "/pages/page-wishlist-liquid";
+});
+
+</script>

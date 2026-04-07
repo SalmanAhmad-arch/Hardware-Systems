@@ -1,0 +1,356 @@
+<style>
+    .categories {
+    padding: 20px 20px;
+    background: #f5f5f5;
+}
+
+.tag {
+    letter-spacing: 3px;
+    font-size: 12px;
+    color: #888;
+}
+
+.categories h2 {
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    transition: 0.4s;
+}
+
+
+.card-content {
+    position: absolute;
+      bottom: 10px;
+    left: 20px;
+    right: 30px;
+    color: white;
+    z-index: 2;
+}
+
+.card-content h2 {
+    color:white;
+    font-size: 28px;
+    font-weight:600;
+    margin-bottom: -7px;
+}
+
+.cardPara {
+   font-size: 15px;
+    max-width: 460px;
+    margin-bottom: 10px;
+    color: #ddd;
+}
+
+.butn2 {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 13px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card:hover .overlay {
+    background: rgba(0,0,0,0.6);
+}
+
+.big {
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.grid .card {
+    height: 250px;
+}
+
+@media (max-width: 992px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .big {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .categories {
+        padding: 40px 15px;
+    }
+
+    .categories h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .big {
+        height: 250px;
+    }
+
+    .grid .card {
+        height: 220px;
+    }
+
+    .card-content {
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+    }
+
+    .card-content h2 {
+        font-size: 20px;
+    }
+
+    .cardPara {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .categories h2 {
+        font-size: 24px;
+    }
+
+    .big {
+        height: 220px;
+    }
+
+    .grid .card {
+        height: 200px;
+    }
+
+    .card-content h2 {
+        font-size: 18px;
+    }
+
+    .cardPara {
+        font-size: 13px;
+    }
+}
+</style>
+<section class="categories">
+    <p class="tag">{{ section.settings.tag_text }}</p>
+    <h2>{{ section.settings.heading }}</h2>
+    
+    <!-- Big Card - data-collection add kiya -->
+    <div class="card big" data-collection="balustrade-pool">
+        <img src="https://cdn.shopify.com/s/files/1/1021/8078/2161/files/img1.jpg?v=1773731101" alt="Balustrade & Pool">
+        <div class="overlay"></div>
+        <div class="card-content">
+            <h2>{{ section.settings.big_heading }}</h2>
+            <p class="cardPara">{{ section.settings.big_text }}</p>
+            <span class="butn2">EXPLORE SYSTEMS →</span>
+        </div>
+    </div>
+    
+    <div class="grid">
+        <!-- Card 1 -->
+        <div class="card" data-collection="sliding-door">
+            <img src="https://cdn.shopify.com/s/files/1/1021/8078/2161/files/pexels-expect-best-79873-323776.jpg?v=1773810682" alt="Sliding Door">
+            <div class="overlay"></div>
+            <div class="card-content">
+                <h2>{{ section.settings.card1_heading }}</h2>
+                <p class="cardPara">{{ section.settings.card1_text }}</p>
+                <span class="butn2">EXPLORE SYSTEMS →</span>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" data-collection="shower">
+            <img src="https://cdn.shopify.com/s/files/1/1021/8078/2161/files/img2.jpg?v=1773731100" alt="Shower">
+            <div class="overlay"></div>
+            <div class="card-content">
+                <h2>{{ section.settings.card2_heading }}</h2>
+                <p class="cardPara">{{ section.settings.card2_text }}</p>
+                <span class="butn2">EXPLORE SYSTEMS →</span>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card" data-collection="canopy-facade">
+            <img src=https://cdn.shopify.com/s/files/1/0668/0248/3299/files/photo-1600596542815-ffad4c1539a9.jpg?v=1774500513 alt="Canopy">
+            <div class="overlay"></div>
+            <div class="card-content">
+                <h2>{{ section.settings.card3_heading }}</h2>
+                <p class="cardPara">{{ section.settings.card3_text }}</p>
+                <span class="butn2">EXPLORE SYSTEMS →</span>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card" data-collection="commercial-doors-partitions">
+            <img src="https://cdn.shopify.com/s/files/1/1021/8078/2161/files/photo-1600210492486-724fe5c67fb0.jpg?v=1773731100" alt="Commercial">
+            <div class="overlay"></div>
+            <div class="card-content">
+                <h2>{{ section.settings.card4_heading }}</h2>
+                <p class="cardPara">{{ section.settings.card4_text }}</p>
+                <span class="butn2">EXPLORE SYSTEMS →</span>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+(function() {
+    document.querySelectorAll('.categories .card').forEach(function(card) {
+        card.addEventListener('click', function() {
+            const collection = this.dataset.collection.toLowerCase().trim();
+
+            const productsSection = document.querySelector('.systems-section');
+
+            if (!productsSection) {
+                window.location.href = '/collections/' + collection;
+                return;
+            }
+
+            // Scroll
+            productsSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+
+            setTimeout(function() {
+                let found = false;
+
+                document.querySelectorAll('.filter-btn-ss').forEach(function(btn) {
+                    const filter = btn.dataset.filter.toLowerCase().trim();
+
+                    if (filter === collection) {
+                        // 🔥 FIXED CLICK
+                        btn.dispatchEvent(new Event('click', { bubbles: true }));
+                        found = true;
+                    }
+                });
+
+                if (!found) {
+                    console.warn("No matching filter button found for:", collection);
+                }
+
+            }, 600);
+        });
+    });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Categories Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "BROWSE BY CATEGORY"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "System Categories"
+    },
+    {
+      "type": "text",
+      "id": "big_heading",
+      "label": "Big Card Heading",
+      "default": "Balustrade & Pool"
+    },
+    {
+      "type": "textarea",
+      "id": "big_text",
+      "label": "Big Card Text",
+      "default": "Premium glass balustrade and pool fencing systems for residential and commercial projects."
+    },
+    {
+      "type": "text",
+      "id": "card1_heading",
+      "label": "Card 1 Heading",
+      "default": "Sliding Door"
+    },
+    {
+      "type": "textarea",
+      "id": "card1_text",
+      "label": "Card 1 Text",
+      "default": "High-performance sliding door track and hardware system for seamless indoor-outdoor living."
+    },
+    {
+      "type": "text",
+      "id": "card2_heading",
+      "label": "Card 2 Heading",
+      "default": "Shower"
+    },
+    {
+      "type": "textarea",
+      "id": "card2_text",
+      "label": "Card 2 Text",
+      "default": "Precision-engineered shower screen hardware and enclosure systems for modern bathrooms."
+    },
+    {
+      "type": "text",
+      "id": "card3_heading",
+      "label": "Card 3 Heading",
+      "default": "Canopy & Facades"
+    },
+    {
+      "type": "textarea",
+      "id": "card3_text",
+      "label": "Card 3 Text",
+      "default": "Structural glass canopy and facade fixing systems for striking architectural statements."
+    },
+    {
+      "type": "text",
+      "id": "card4_heading",
+      "label": "Card 4 Heading",
+      "default": "Commercial Doors & Partitions"
+    },
+    {
+      "type": "textarea",
+      "id": "card4_text",
+      "label": "Card 4 Text",
+      "default": "Heavy-duty commercial door and glass partition systems for offices, retail and hospitality."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
